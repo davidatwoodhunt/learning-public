@@ -1,0 +1,11 @@
+/rust_learning/*/target/
+**/aux/
+**/.DS_Store
+.vscode/*
+**/__pycache__/
+**/.coverage
+**/target/*
+**/.venv/
+**/.vscode/
+/ML_exercises/imageNet/__pycache__/
+/ML_exercises/imageNet/dataset/

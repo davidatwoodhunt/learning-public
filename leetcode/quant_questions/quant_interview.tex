@@ -1,0 +1,270 @@
+\documentclass[a4paper,10pt]{article}
+% Preamble
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{darkmode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\enabledarkmode
+
+\definecolor{lilac}{HTML}{C8A2C8}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,   % Code font and size
+    keywordstyle=\color{lilac},          % Keywords color
+    commentstyle=\color{gray},           % Comments color
+    stringstyle=\color{pink},            % Strings color
+    numbers=left,                        % Line numbers on the left
+    numberstyle=\tiny\color{gray},       % Line number style
+    stepnumber=1,                        % Line number increment
+    frame=single,                        % Adds a frame around the code
+    breaklines=true,                     % Line breaking
+    tabsize=4                            % Tab size
+}
+
+
+
+\title{Questions for Quant Interviews} % Title of the document
+\author{David Hunt} % Author(s) of the document
+
+\begin{document}
+
+% Title and author
+\maketitle
+
+% Questions
+\section*{Questions}
+
+\textbf{Question 1 (statistics)}: How do you test whether a data sample is normal or not?
+\vspace{0.25cm} 
+\noindent
+\begin{sloppypar}
+        There are several ways to test for normality. Most easily one can run a z or t test given the number of samples. 
+        This will show if the data is normally distributed. Another way is to use a Q-Q plot to compare the data to a normal distribution.
+        Also to look at the skewness and kurtosis of the data and compare to the moments of the normal distribution.
+\end{sloppypar}
+\vspace{0.5cm} 
+\noindent
+\textbf{Question 2 (math)}: Show that a set is convex if and only if its intersection with any line is convex. Show that a set is affine if and only if its intersection with any line is affine.
+\vspace{0.25cm} 
+\noindent
+\begin{sloppypar}
+        By the definition of a conic set, a set is convex if for any two points in the set, the line conecting them is wholly within the set.
+        the proof should follow that if you pick any two arbitrary points in the set $x$ and $y$ and draw a line between them, the line will be wholly within the set.
+        the proof for affine is similar, but the line between the two points is not wholly within the set.
+\end{sloppypar}
+\vspace{0.5cm} 
+\noindent
+\textbf{Question 3 (finance)}: explain the discount rate and why its important 
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+        The discount rate is the rate at which future cash flows are discounted to the present value. in the case of US bonds
+        it can be thought of as the risk free rate from the US treasury. In this case we can think of rates on a curve.
+        If i'm going to be lending money for $n$ amount of time then I will need to discount the cash flows of the interest rate i receive by what i could recieve otherwise in the market.
+        This is important because it allows us to compare the value of money at different times.
+        in the case of lending for 30 years, i should use the rate that i \textit{expect} the 30yr rate to be, in this case, the yield on 30yr treasury bonds. 
+\end{sloppypar}
+\vspace{0.5cm} 
+\noindent
+\textbf{Question 4 (probability)}: Monty Hall problem
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+        The Monty Hall problem is a probability puzzle based on the game show "Let's Make a Deal". 
+        In this case, you should always switch doors. this can be explained as follows:
+        The probability that you pick the "wrong" door at the start is $\frac{2}{3}$, 
+        and the probability that you pick the "right" door is $\frac{1}{3}$.
+        if you initially picked the door with the car you will lose if you switch;
+        but that only happens $\frac{1}{3}$ of the time.
+\end {sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 5 (stats)}: Random variable X is distributed as N(a,b) and random variable Y is distributed as N(c,d). What is the distribution of X+Y, X-Y, X*Y, and X/Y?
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    \begin{itemize}
+        \item{X+Y: $N(a+c, \sqrt{b^2+d^2})$}: means are additive but std is root of variance added
+        \item {X-Y: $N(a-c, \sqrt{b^2+d^2})$}: means are subtracted but std is root of variance added. variance represents uncertaintly which is always +ve
+        \item {X*Y}: is not normally distributed 
+        \item {X/Y}: is not normally distributed
+    \end{itemize}
+    
+    For the case of X*Y the mean will look like $E[X] * E[Y] = a \times c$
+    However, the variance will be 
+    $$E[X^2]E[Y^2] - E[X]E[Y]^2 = b^2d^2 + a^2c^2 - a^2c^2 = b^2d^2$$
+    for X/Y: this is not normally distributed and skewed with heavy tails. 
+            Ther is no closed form solution for this distribution but can be approximated with the log-normal distribution.
+
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 6 (options)}: what is put-call parity / what are teh assumptions and risks in trading
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    The underlying logic is that the value of a call option and a put option with the same strike price and expiration date should be equal.
+    This is because if you buy a call and sell a put, you have the same exposure as buying the stock.
+    The put-call parity formula is $C - P = S - K/(1+r)^t$ where $C$ is the call price, $P$ is the put price, $S$ is the stock price, $K$ is the strike price, $r$ is the risk-free rate, and $t$ is the time to expiration.
+
+    the assumptions you have are that these are European options not American, so no early exercise. 
+    Also, you're assuming a constant risk-free rate and no dividends.
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 7 (programming)}: is this valid C++ code /  what does it print?
+\begin{lstlisting}[language=C++]
+    cout << (int *) "home of the jolly bytes";
+\end{lstlisting}
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    This will print the pointer address of the string "home of the jolly bytes".
+    The code is valid but the output is probably not what the programmer intended
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 8 (econometrics)}: is an AR(p) process stationary? why or why not? 
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    It can be. It is an autoregressive process. Not all AR processes are stationary such as an AR(1) process with a coefficient of 1.
+    For an AR(p) process to be stationary, the roots of the characteristic equation must be outside the unit circle.
+    This is because the AR process is a linear combination of past values of the series.
+    If the roots are inside the unit circle, the series will explode to infinity.
+    this is defined by the equation:
+    $$X_t = \phi_1X_{t-1} + \phi_2X_{t-2} + ... + \phi_pX_{t-p} + \epsilon_t$$
+    where $\epsilon_t$ is white noise.
+    $$1 - \phi_1z - \phi_2z^2 - ... - \phi_pz^p = 0$$
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 9 (econometrics)}: what is the difference between AR and MA processes?
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    \noindent
+    AR(p) process is the linear combination of its own past values. Which means it exhibits self dependence over time. \\ 
+    AR(p) values decay gradually depending on the value of the coefficients $\phi_n$ in the model.\\ 
+    MA(q) process depends on \textbf{past random shocks} that move the average value of the series. \\ 
+    MA(q) values depend on the parameter Q and once this value is aged enough it drops out of the model.\\
+    AR(p) can be stationary if the roots of the characteristic equation are outside the unit circle.\\
+    MA(q) is always stationary since its a linear combination of past shocks.\\
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 10 (econometrics)}:  How do you determine the order of an AR or MA process?
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    \noindent
+    You can use the ACF(\textit{Autocorrelation Function}) and PACF(\textit{Partial Autocorrelation Function}) to determine the order of an AR or MA process.\\ 
+    \\
+    \textbf{AR(P)}:
+        \indent
+        \begin{itemize}
+            \item{ACF}: will decay gradually overtime
+            \item{PACF}: will have a sharp cutoff after lag P
+            \item for example if you have a sharp cutoff after P=3 then you have an AR(3) process
+        \end{itemize}
+    \textbf{MA(Q)}:
+        \indent
+        \begin{itemize}
+            \item{ACF}: cutoff sharply after lag Q
+            \item {PACF}: will decay gradually overtime
+            \item for example if you have a sharp cutoff after Q=3 then you have an MA(3) process
+        \end{itemize}
+    
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 11 (hedging)}: How do you determine the optimal hedge for 100mm short CDS position?
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    \noindent
+    \indent
+    \begin{itemize}
+        \item{Assume no recovery}
+        \item{5yr CDS on stock ABC you collect 200bps on the contract}
+        \item{in default, perfect correlation between equity and credit} 
+        \item{How do you hedge / what are the risks there}
+    \end{itemize}
+
+    By selling CDS you are long the credit risk of the company, so if they default you get allocated the negative pnl. 
+    To hedge this, all you care about is the terminal state. It's 5 yr CS so you need to think about the 5yr state of the credit.
+    Since in default there is nearly perfect correlation between equity and credit we can assume the default case is a equity position efficively. 
+    The best way to hedge out tail risk on equity is through crash options. we can buy some crash puts on the stock for 5yr term and at a low strike. 
+    We would want to have a low strike so that we're not over paying for the optionality of the not crash but degredation case. \\
+    \\
+    To price the correct amount for the option we would want the 10\% or 5\% away from zero strike. ideally here the option is probably going to be trading for
+    10\% or 5\% of the amount we're receiving on our CDS spread over the 5yr term. So here we're recieving efficively \$10mm of CDS insurance payment over the 5 yr term. 
+    We want to pay less than the premium we're receiving for the CDS. The put is going to be trading at \textit{near} zero.
+    But 5yr puts are probably going to be OTC so you're subject to bank vagaries. (ignore for now)
+    puts are probably trading at ~~\$1 (in the 10 case) since stock is trading at 100(assume) and in the case of default which is implied at 2\% /year for the next 5 years,
+    we can think of the option as equating to the 2\% default rate. so the option is trading at 2\% * 5 of the stock price with a 100 ratio.
+    \\
+
+    Risk we're running here is that we're paying up front for the option but we're receiving cash flows over time. so discounting is important.
+    In addition, if the company defaults tomorrow we don't get our cash flow payments, though we do get our option expiry. so premium isn't worthless and we're probably net up 
+    though we have overpaid for $\theta$. 
+
+\end{sloppypar}
+\vspace{0.5cm}
+\noindent
+\textbf{Question 12 (Finance)}: What is the intuition behind CAPM?
+\vspace{0.25cm}
+\noindent
+\begin{sloppypar}
+    CAPM or Capital Asset Pricing Model, is a way to value capital assets in terms of their risk adjusted return.
+    A way to think about it is, it is attempting to put a market value on the intrinsic use of a capital asset and its depreciation over time. 
+    $$ E(R_i) = R_f + \beta_{i} * (R_m - R_f)$$
+
+\end{sloppypar}
+\vspace{.5cm}
+\noindent
+\textbf{Question 13 (econometrics)}: When modeling binary-choice problems, what are the advantages of using logic over probit?
+\vspace{.25cm}
+\noindent
+\begin{sloppypar}
+    \noindent
+    \textbf{Logit}:
+    $$ logit(x) = \frac{1}{1+e^{-x}}$$
+    \textbf{Probit}:
+    $$ probit(x) = \Phi(x) $$
+
+    logit is the sigmoid function which uses a logistic distribution of errors, and probit uses a normal distribution. 
+    for binary choice problems I would prefer to use the Logit function as it has fatter tails, better handling a 0 / 1 case. 
+    Functionally both will work, however Logit is computationally simpler and handles the tails well
+\end{sloppypar}
+
+
+\textbf{Question 13 (QR)}: Given a series of returns in sample and out of sample.along with a set of alphas and risk factors. How can you set a positions column to maximize sharpe?
+\vspace{.25cm}
+\noindent
+\begin{sloppypar}
+    Assume that returns are modeled as 
+    $$ r = Xf + Z \beta  + \mu $$
+    Where f is the risk facors and X is the matrix
+
+    Involves double linear regression on insample returns {see attached notebook}
+\end{sloppypar}
+
+
+
+% Additional Resources
+
+
+\section*{Additional Resources}
+\begin{itemize}
+    \item {Source \url{https://www.moneyscience.com/50-questions-for-quant-interviews/}}
+    \sloppy
+    \item \url{https://www.janestreet.com/static/pdfs/trading-interview.pdf?utm_source=web&utm_medium=pdf&utm_campaign=probability_markets_guide}
+\end {itemize}
+\end{document}
