@@ -9,3 +9,4 @@
 **/.vscode/
 /ML_exercises/imageNet/__pycache__/
 /ML_exercises/imageNet/dataset/
+**/dataset/**
